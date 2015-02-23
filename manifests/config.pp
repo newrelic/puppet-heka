@@ -32,7 +32,7 @@
 # === Copyright
 #
 # Copyright 2015 Nicholas Chappell, unless otherwise noted.
-class heka {
+class heka::config {
 
 
 }
