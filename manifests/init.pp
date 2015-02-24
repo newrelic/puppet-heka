@@ -42,6 +42,12 @@ class heka (
 ) inherits heka::params {
 
   #Manage the package
+
+  package { 'heka':
+    ensure   => 'installed',
+    source   => $package_download_url,
+    provider => $package_provider,
+  }
   
   #Manage /etc/heka/
   
