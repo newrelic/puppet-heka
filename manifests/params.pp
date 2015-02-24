@@ -42,6 +42,8 @@ class heka::params {
   ##############################
   # Heka package parameters
   ##############################
+
+  $package_ensure = 'installed'
   
   case $::operatingsystem {
     #Red Hat and CentOS systems:
@@ -58,29 +60,38 @@ class heka::params {
     }
   }
 
-  $package_ensure = 'installed'
-
-
   ##############################
   # Heka service parameters
   ##############################
   
   #Whether the daemon should be running; defaults to 'running'
+  $manage_service = true
   $service_ensure = 'running'
 
   #Pick the right daemon name based on the operating system; it's the same across
   #RedHat/CentOS and Debian/Ubuntu right now, but we're keeping them separate in case they
-  #change in the future:
+  #change in the future.
+  #Also pick the right service manager. On Debian/Ubuntu and RedHat/CentOS 6.x, it should be
+  #Upstart. On RedHat/CentOS 7, it should be systemd:
   case $::operatingsystem {
-    #RedHat/CentOS systems:
     'RedHat', 'CentOS': {
-      $heka_daemon_name = 'rpm'
+      $heka_daemon_name = 'heka'
+      case $::operatingsystemmajrelease {
+      #Pick Upstart for Red Hat/CentOS 6:
+        '6': {
+          $service_provider = 'upstart'
+        }
+        #Pick systemd for Red Hat/CentOS 7:
+        '7': {
+          $service_provider = 'systemd'
+        }
+        default: { fail("${::operatingsystemmajrelease} is not a supported Red Hat/CentOS release!") }
     }
     #Debian/Ubuntu systems:
     'Debian', 'Ubuntu': {
      #Pick the right package provider:
-      $package_provider = 'dpkg'
-      $package_download_name = 'heka_0.8.3_amd64.deb'
+      $heka_daemon_name = 'heka'
+      $service_provider = 'upstart'
     }
     default: { fail("${::operatingsystem} is not a supported operating system!") }
   }
