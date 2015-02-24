@@ -33,7 +33,7 @@ class heka::params {
   ##############################
 
   #Parameter for the maxprocs in the [hekad] section of a heka.toml file; defaults to 1 (integer)
-  $heka_max_procs = 1
+  $heka_max_procs = $::processorcount*2
   #Parameter for the base_dir in the [hekad] section of a heka.toml file; defaults to '/var/cache/hekad' (string)
   $heka_base_dir = '/var/cache/hekad'
   #Parameter for the share_dir in the [hekad] section of a heka.toml file; defaults to '/usr/share/heka' (string)
