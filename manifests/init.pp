@@ -47,10 +47,26 @@ class heka (
     ensure   => 'installed',
     source   => $package_download_url,
     provider => $package_provider,
-  }
+  } ->
   
   #Manage /etc/heka/
-  
+  file {'/etc/heka':
+    ensure  => 'directory',
+    owner   => 'root',
+    group   => 'root',
+    mode    => '0755',
+  } ~>
+
+  #Manage /etc/heka/heka.toml
+  file {'/etc/heka/heka.toml':
+    ensure  => 'file',
+    owner   => 'root',
+    group   => 'root',
+    mode    => '0644',
+    content => template('heka/heka.toml.erb'),
+    #notify  => Service[$heka_daemon_name],
+  } #~>
+
   #Manage /etc/heka/heka.toml
 
   #Manage the service
