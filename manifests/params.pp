@@ -86,6 +86,7 @@ class heka::params {
           $service_provider = 'systemd'
         }
         default: { fail("${::operatingsystemmajrelease} is not a supported Red Hat/CentOS release!") }
+      }
     }
     #Debian/Ubuntu systems:
     'Debian', 'Ubuntu': {
