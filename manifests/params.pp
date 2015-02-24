@@ -10,16 +10,9 @@
 #   Explanation of what this parameter affects and what it defaults to.
 #   e.g. "Specify one or more upstream ntp servers as an array."
 #
-# === Variables
+# === Parameters
 #
-# Here you should define a list of variables that this module would require.
-#
-# [*sample_variable*]
-#   Explanation of how this variable affects the funtion of this class and if
-#   it has a default. e.g. "The parameter enc_ntp_servers must be set by the
-#   External Node Classifier as a comma separated list of hostnames." (Note,
-#   global variables should be avoided in favor of class parameters as
-#   of Puppet 2.6.)
+# Coming soon...
 #
 # === Examples
 #
@@ -32,8 +25,67 @@
 # === Copyright
 #
 # Copyright 2015 Nicholas Chappell, unless otherwise noted.
+
 class heka::params {
 
+  ##############################
+  # Heka general parameters
+  ##############################
+
+  #Parameter for the maxprocs in the [hekad] section of a heka.toml file; defaults to 1 (integer)
+  $heka_max_procs = 1
+  #Parameter for the base_dir in the [hekad] section of a heka.toml file; defaults to '/var/cache/hekad' (string)
+  $heka_base_dir = '/var/cache/hekad'
+  #Parameter for the share_dir in the [hekad] section of a heka.toml file; defaults to '/usr/share/heka' (string)
+  $heka_share_dir = '/usr/share/heka'
+  
+  ##############################
+  # Heka package parameters
+  ##############################
+  
+  $package_download_base_url = 'https://github.com/mozilla-services/heka/releases/download/v0.8.3/'
+  
+  case $::operatingsystem {
+    #Red Hat and CentOS systems:
+    'RedHat', 'CentOS': {
+     #Pick the right package provider:
+      $package_provider = 'rpm'
+      $package_download_name = 'heka-0_8_3-linux-amd64.rpm'
+    }
+    #Debian/Ubuntu systems:
+    'Debian', 'Ubuntu': {
+     #Pick the right package provider:
+      $package_provider = 'dpkg'
+      $package_download_name = 'heka_0.8.3_amd64.deb'
+    }
+  }
+
+  $package_ensure = 'installed'
+
+
+  ##############################
+  # Heka service parameters
+  ##############################
+  
+  #Whether the daemon should be running; defaults to 'running'
+  $service_ensure = 'running'
+
+  #Pick the right daemon name based on the operating system; it's the same across
+  #RedHat/CentOS and Debian/Ubuntu right now, but we're keeping them separate in case they
+  #change in the future:
+  case $::operatingsystem {
+    #RedHat/CentOS systems:
+    'RedHat', 'CentOS': {
+      $heka_daemon_name = 'rpm'
+    }
+    #Debian/Ubuntu systems:
+    'Debian', 'Ubuntu': {
+     #Pick the right package provider:
+      $package_provider = 'dpkg'
+      $package_download_name = 'heka_0.8.3_amd64.deb'
+    }
+    default: { fail("${::operatingsystem} is not a supported operating system!") }
+  }
 
 
 
