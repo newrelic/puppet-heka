@@ -32,7 +32,13 @@
 # === Copyright
 #
 # Copyright 2015 Nicholas Chappell, unless otherwise noted.
-class heka {
-
+class heka (
+  $package_download_url = $heka::params::package_download_url
+  $manage_service       = $heka::params::manage_service
+  $service_ensure       = $heka::params::service_ensure
+  $heka_max_procs       = $heka::params::heka_max_procs
+  $heka_base_dir        = $heka::params::heka_base_dir
+  $heka_share_dir       = $heka::params::heka_share_dir
+) inherits heka::params {
 
 }
