@@ -41,4 +41,12 @@ class heka (
   $heka_share_dir       = $heka::params::heka_share_dir
 ) inherits heka::params {
 
+  #Manage the package
+  
+  #Manage /etc/heka/
+  
+  #Manage /etc/heka/heka.toml
+
+  #Manage the service
+
 }
