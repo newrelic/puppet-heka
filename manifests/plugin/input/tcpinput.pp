@@ -51,7 +51,7 @@ define heka::plugin::input::tcpinput (
   $plugin_file_group    = 'root',
   $plugin_file_mode     = '0644',
   $refresh_heka_service = true,
-  $heka_daemon_name     = $heka::params::heka_daemon_name,
+  $heka_daemon_name     = 'heka',
   #TcpInput plugin specific parameters
   $plugin_file_template = 'heka/plugins/inputs/heka_tcpinput_plugin.toml.erb',
   $address              = undef,
