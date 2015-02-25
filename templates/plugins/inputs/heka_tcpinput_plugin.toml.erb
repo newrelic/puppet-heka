@@ -4,6 +4,9 @@
 # ANY MANUAL CHANGES TO IT WILL GET OVERWRITTEN! #
 ##################################################
 
+# This plugin file is for a TCP input. See the Heka documentation for more information on TCP inputs:
+# http://hekad.readthedocs.org/en/latest/config/inputs/tcp.html
+
 [<%= @name %>]
 type = "TcpInput"
 <%- if @address -%>
