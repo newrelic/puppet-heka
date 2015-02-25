@@ -1,7 +1,7 @@
 {
   "name": "nickchappell/heka",
   "version": "0.1.0",
-  "author": "Nick Chappell",
+  "author": "Nicholas Chappell",
   "summary": "This module installs and configure Heka, a metrics and event stream processor.",
   "license": "Apache 2.0",
   "source": "https://github.com/nickchappell/puppet-heka",
@@ -21,22 +21,10 @@
         "6",
         "7"
       ]
-    },
-    {
-      "operatingsystem": "Debian",
-      "operatingsystemmajrelease": [
-        "7"
-      ]
-    },
-    {
-      "operatingsystem": "Ubuntu",
-      "operatingsystemmajrelease": [
-        "14.04"
-      ]
     }
   ],
 
   "dependencies": [
-    {"name":"puppetlabs-stdlib","version_requirement":">= 1.0.0"}
+    {"name": "puppetlabs/inifile", "version_requirement": ">= 1.2.0"}
   ]
 }
