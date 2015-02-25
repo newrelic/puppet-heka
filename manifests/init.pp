@@ -36,6 +36,7 @@ class heka (
   $package_download_url = $heka::params::package_download_url,
   $manage_service       = $heka::params::manage_service,
   $service_ensure       = $heka::params::service_ensure,
+  $service_enable       = $heka::params::service_enable,
   $heka_max_procs       = $heka::params::heka_max_procs,
   $heka_base_dir        = $heka::params::heka_base_dir,
   $heka_share_dir       = $heka::params::heka_share_dir
@@ -80,16 +81,16 @@ class heka (
             mode    => '0644',
             content => template('heka/heka.conf.erb'),
           } ~>
-          
+
           service { $heka_daemon_name:
             ensure   => $service_ensure,
             provider => $service_provider,
+            enable => $service_enable
           }
-
         }
-        #Pick systemd for Red Hat/CentOS 7:
+
         '7': {
-          
+
           package { 'heka':
             ensure   => 'installed',
             source   => $package_download_url,
@@ -127,6 +128,7 @@ class heka (
           service { $heka_daemon_name:
             ensure   => $service_ensure,
             provider => $service_provider,
+            enable => $service_enable
           }
 
         }

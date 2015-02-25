@@ -67,6 +67,7 @@ class heka::params {
   #Whether the daemon should be running; defaults to 'running'
   $manage_service = true
   $service_ensure = 'running'
+  $service_enable = true
 
   #Pick the right daemon name based on the operating system; it's the same across
   #RedHat/CentOS and Debian/Ubuntu right now, but we're keeping them separate in case they
