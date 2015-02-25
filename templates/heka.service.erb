@@ -1,0 +1,19 @@
+##################################################
+#      !!!!!!!!!!!!!!!!WARNING!!!!!!!!!!!!       #
+#        This file is managed by Puppet.         #
+# ANY MANUAL CHANGES TO IT WILL GET OVERWRITTEN! #
+##################################################
+
+# heka - data acquisition and collection made easy
+# SystemD unit file for Heka
+[Unit]
+Description=Heka event/metric/log collection and routing daemon
+
+[Service]
+Type=simple
+PIDFile=/var/run/hekad.pid
+ExecStart=/usr/bin/hekad -config=/etc/heka
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target
