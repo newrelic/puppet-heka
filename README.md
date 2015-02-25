@@ -68,6 +68,17 @@ for upgrading, you may wish to include an additional section here: Upgrading
 }
 ```
 
+[**UdpInput**](id:plugins_inputs_udpinput)
+
+[Heka documentation: UdpInput](http://hekad.readthedocs.org/en/latest/config/inputs/udp.html)
+
+```bash
+::heka::plugin::input::udpinput { 'udpinput1':
+  refresh_heka_service => true,
+  address => "${::ipaddress_lo}:4484"
+}
+```
+
 ##Reference
 
 Here, list the classes, types, providers, facts, etc contained in your module.
