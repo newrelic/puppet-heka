@@ -41,34 +41,99 @@ class heka (
   $heka_share_dir       = $heka::params::heka_share_dir
 ) inherits heka::params {
 
-  #Manage the package
-
-  package { 'heka':
-    ensure   => 'installed',
-    source   => $package_download_url,
-    provider => $package_provider,
-  } ->
+  case $::operatingsystem {
+    'RedHat', 'CentOS': {
+      $heka_daemon_name = 'heka'
+      case $::operatingsystemmajrelease {
+      #Pick Upstart for Red Hat/CentOS 6:
+        '6': {
+          
+          package { 'heka':
+            ensure   => 'installed',
+            source   => $package_download_url,
+            provider => $package_provider,
+          } ->
   
-  #Manage /etc/heka/
-  file {'/etc/heka':
-    ensure  => 'directory',
-    owner   => 'root',
-    group   => 'root',
-    mode    => '0755',
-  } ~>
+          #Manage /etc/heka/
+          file {'/etc/heka':
+            ensure  => 'directory',
+            owner   => 'root',
+            group   => 'root',
+            mode    => '0755',
+          } ~>
 
-  #Manage /etc/heka/heka.toml
-  file {'/etc/heka/heka.toml':
-    ensure  => 'file',
-    owner   => 'root',
-    group   => 'root',
-    mode    => '0644',
-    content => template('heka/heka.toml.erb'),
-    #notify  => Service[$heka_daemon_name],
-  } #~>
+          #Manage /etc/heka/heka.toml
+          file {'/etc/heka/heka.toml':
+            ensure  => 'file',
+            owner   => 'root',
+            group   => 'root',
+            mode    => '0644',
+            content => template('heka/heka.toml.erb'),
+            #notify  => Service[$heka_daemon_name],
+          } ~>
 
-  #Manage /etc/heka/heka.toml
+          #File resource for /etc/init/heka.conf, the Upstart config file:
+          file { '/etc/init/heka.conf':
+            ensure  => 'file',
+            owner   => 'root',
+            group   => 'root',
+            mode    => '0644',
+            content => template('heka/heka.conf.erb'),
+          } ~>
+          
+          service { $heka_daemon_name:
+            ensure   => $service_ensure,
+            provider => $service_provider,
+          }
 
-  #Manage the service
+        }
+        #Pick systemd for Red Hat/CentOS 7:
+        '7': {
+          
+          package { 'heka':
+            ensure   => 'installed',
+            source   => $package_download_url,
+            provider => $package_provider,
+          } ->
+  
+          #Manage /etc/heka/
+          file {'/etc/heka':
+            ensure  => 'directory',
+            owner   => 'root',
+            group   => 'root',
+            mode    => '0755',
+          } ~>
+
+          #Manage /etc/heka/heka.toml
+          file {'/etc/heka/heka.toml':
+            ensure  => 'file',
+            owner   => 'root',
+            group   => 'root',
+            mode    => '0644',
+            content => template('heka/heka.toml.erb'),
+            #notify  => Service[$heka_daemon_name],
+          } ~>
+
+          #File resource for /usr/lib/systemd/system/heka.service, the systemd unit file
+          #for the Heka daemon:
+          file { '/usr/lib/systemd/system/heka.service':
+            ensure  => 'file',
+            owner   => 'root',
+            group   => 'root',
+            mode    => '0644',
+            content => template('heka/heka.service.erb'),
+          } ~>
+
+          service { $heka_daemon_name:
+            ensure   => $service_ensure,
+            provider => $service_provider,
+          }
+
+        }
+        default: { fail("${::operatingsystemmajrelease} is not a supported Red Hat/CentOS release!") }
+      }
+    }
+    default: { fail("${::operatingsystem} is not a supported operating system!") }
+  }
 
 }
