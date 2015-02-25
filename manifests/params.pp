@@ -98,6 +98,4 @@ class heka::params {
     default: { fail("${::operatingsystem} is not a supported operating system!") }
   }
 
-
-
 }
