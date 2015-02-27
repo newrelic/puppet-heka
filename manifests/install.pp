@@ -1,4 +1,4 @@
-# == Class: heka
+# == Class: heka::install
 #
 # Full description of class heka here.
 #
@@ -32,30 +32,19 @@
 # === Copyright
 #
 # Copyright 2015 Nicholas Chappell, unless otherwise noted.
-class heka (
+class heka::install (
   $package_download_url = $heka::params::package_download_url,
-  $manage_service       = $heka::params::manage_service,
-  $service_ensure       = $heka::params::service_ensure,
-  $service_enable       = $heka::params::service_enable,
 ) inherits heka::params {
 
-
-  if $manage_service == true {
-    #Apply our classes in the right order. Use the squiggly arrows (~>) to ensure that the
-    #class left is applied before the class on the right and that it also refreshes the
-    #class on the right.
-    class { 'heka::install':
-      package_download_url => $package_download_url,
-    } ~>
-    class { 'heka::config': } ~>
-    class { 'heka::service': }
-  }
-  else {
-    #Like the class chain above, but without the `class { 'heka::service': }`.
-    class { 'heka::install':
-      package_download_url => $package_download_url,
-    } ~>
-    class { 'heka::config': }
+  case $::operatingsystem {
+    'RedHat', 'CentOS': {
+      package { 'heka':
+        ensure   => 'installed',
+        source   => $package_download_url,
+        provider => $package_provider,
+      }
+    }
+    default: { fail("${::operatingsystem} is not a supported operating system!") }
   }
 
 }
