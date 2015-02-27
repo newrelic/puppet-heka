@@ -6,8 +6,14 @@
 #
 # @param plugin_dir String; the directory the TOML plugin file will be created in; defaults to `/etc/heka`.
 # @param plugin_file_name String; the name of the TOML plugin file; defaults to `$name.toml`.
+# @param plugin_file_ensure String' the type of file resource to create; defaults to `file`.
+# @param plugin_file_owner String; the owner of the TOML plugin file; defaults to `root`.
+# @param plugin_file_group String; the group of the TOML plugin file; defaults to `root`.
+# @param plugin_file_mode String; the mode of the TOML plugin file; defaults to `0644`.
+# @param plugin_file_template String; the ERB template to use to generate the TOML plugin file; defaults to `heka/plugins/heka_plugin.toml.erb`
 # @param refresh_heka_service Bool; whether to refresh the Heka daemon when a config file is created or modified.
-# @param toml_settings Hash; a hash of INI settings to pass to Puppet's `create_resource` function, which will create `ini_setting` resources for each item in the hash.
+# @param type String; the type of Heka plugin this TOML file will be an instance of.
+# @param settings Hash; a hash of settings that gets passed to the ERB template, which iterates over the hash to create the TOML INI settings.
 #
 # === Examples
 #
@@ -31,9 +37,15 @@ define heka::plugin (
   #Common plugin parameters
   $plugin_dir           = '/etc/heka',
   $plugin_file_name     = "${name}.toml",
+  $plugin_file_ensure   = file,
+  $plugin_file_owner    = 'root',
+  $plugin_file_group    = 'root',
+  $plugin_file_mode     = '0644',
+  $plugin_file_template = 'heka/plugins/heka_plugin.toml.erb',
   $refresh_heka_service = true,
   $heka_daemon_name     = 'heka',
-  $toml_settings        = {}
+  $type                 = undef,
+  $settings             = {}
 
 ) {
 
@@ -44,22 +56,30 @@ define heka::plugin (
   validate_string($plugin_file_name)
   validate_string($plugin_file_template)
   validate_string($heka_daemon_name)
-  validate_hash($toml_settings)
+  validate_string($type)
+  validate_hash($settings)
 
-  #Since all of the INI settings will go into the same file, set the file path and name
-  #for all ini_setting resources with a resource default. See the following Puppet Labs 
-  #documentation for more info:
-  # https://docs.puppetlabs.com/puppet/latest/reference/lang_defaults.html
-  Ini_setting {
-    ensure  => present,
-    path    => "${plugin_dir}/${plugin_file_name}", 
-    section => $name,  
-    notify  => Service[$heka_daemon_name],
+ #If the refresh_heka_service parameter is set to true...
+  if $refresh_heka_service == true {
+    file { "${plugin_dir}/${plugin_file_name}":
+      ensure  => $plugin_file_ensure,
+      owner   => $plugin_file_owner,
+      group   => $plugin_file_group,
+      mode    => $plugin_file_mode,
+      content => template($plugin_file_template),
+      #...notify the Heka daemon so it can restart and pick up changes made to this config file...
+      notify  => Service[$heka_daemon_name],
+    }
   }
-
-  #Create ini_setting resources from the toml_settings hash; each item in the hash will get 
-  #made into a separate ini_setting resource; the resource default above makes sure that
-  #all of the ini_setting resources are put into the same TOML file:
-  create_resources(ini_setting, $toml_settings)
+  #...otherwise, use the same file resource but without a notify => parameter: 
+  else {
+    file { "${plugin_dir}/${plugin_file_name}":
+      ensure  => $plugin_file_ensure,
+      owner   => $plugin_file_owner,
+      group   => $plugin_file_group,
+      mode    => $plugin_file_mode,
+      content => template($plugin_file_template),
+    }
+  }
 
 }
