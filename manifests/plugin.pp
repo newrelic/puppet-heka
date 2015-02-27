@@ -45,7 +45,8 @@ define heka::plugin (
   $refresh_heka_service = true,
   $heka_daemon_name     = 'heka',
   $type                 = undef,
-  $settings             = {}
+  $settings             = {},
+  $subsetting_sections  = {}
 
 ) {
 
@@ -58,6 +59,7 @@ define heka::plugin (
   validate_string($heka_daemon_name)
   validate_string($type)
   validate_hash($settings)
+  validate_hash($subsetting_sections)
 
  #If the refresh_heka_service parameter is set to true...
   if $refresh_heka_service == true {
