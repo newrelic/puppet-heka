@@ -10,13 +10,35 @@
 [<%= @name %>]
 type = "<%= @type %>"
 <%#- Make sure the settings hash isn't empty before we start iterating over it: -%>
-
-
-<%- if @settings.empty? != true  -%>
+<%- if @settings.empty? != true -%>
 <%#- Sort the settings hash so the order they get added to the rendered file doesn't differ from one Puppet run to the next: -%>
 <%- @settings.sort_by {|key, value| key}.each do |key, value| -%>
 <%#- If the value isn't empty... -%>
+<%- if value -%>
 <%#- ...add it to the rendered file: -%>
 <%= key %> = <%= value %>
 <%- end -%>
+<%- end -%>
+<%- end -%>
+<%#- subsetting_sections is a hash of hashes. Each top-level hash is a subsetting section. -%>
+<%#-The key is used as the subsection name. If 'nginx_access_decoder' is the name of the plugin -%>
+<%#-and 'config' is the subsetting section we want, the name that gets put into the subsection -%>
+<%#-header would be: [nginx_access_decoder.config] -%>
+<%#-The values of the top level hashes are hashes themselves. The key/value pairs of these -%>
+<%#-subhashes are used as the key/value pairs in the rendered TOML files. -%>
+<%#- Make sure the subsetting_sections hash isn't empty before we start iterating over it: -%>
+<%- if @subsetting_sections.empty? != true -%>
+<%#- Sort the subsetting_sections hash so the order they get added to the rendered file doesn't differ from one Puppet run to the next: -%>
+<%- @subsetting_sections.sort_by {|subsection, subsection_settings| subsection}.each do |subsection, subsection_settings| -%>
+
+<%- if subsection -%>
+  [<%= @name %>.<%= subsection %>]
+<%- end -%>
+<%#- Sort the settings hash so the order they get added to the rendered file doesn't differ from one Puppet run to the next: -%>
+<%- subsection_settings.each do |key, value| -%>
+<%#- ...add it to the rendered file: -%>
+  <%= key %> = <%= value %>
+<%- end -%>
+<%- end -%>
+
 <%- end -%>
