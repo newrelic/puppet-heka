@@ -6,68 +6,65 @@
 
 1. [Overview](#overview)
 2. [Module Description - What the module does and why it is useful](#module-description)
-    * Packages
-    * Init scripts and Upstart/systemd files
-    * TOML config files
-        * Global Heka configuration
-        * TOML config files for plugins
-    * asdf
-    * asdf	
+    * [Packages](#packages)
+    * [Init scripts and Upstart/systemd files](#init-upstart-systemd-files)
+    * [TOML config files](#toml-config-files)
+        * [Global Heka configuration](#global-heka-configuration)
+        * [TOML config files for plugins](#toml-config-files-for-plugins)
 3. [Setup - The basics of getting started with heka](#setup)
     * [Setup requirements](#setup-requirements)
-    * [Beginning with heka](#beginning-with-heka)
 4. [Usage - Configuration options and additional functionality](#usage)
-    * Basic usage
-        * Parameter data types
-    * Plugins
-        * Inputs
-            * `TcpInput`
-            * `UdpInput`
-        * Custom plugins
+    * [Basic usage](#basic-usage)
+        * [Parameter data types](#parameter-data-types)
+    * [Plugins](#plugins)
+        * [Inputs](#plugins-inputs)
+            * [`TcpInput`](#plugins-inputs-tcpinput)
+            * [`UdpInput`](#plugins-inputs-udpinput)
+        * [Custom plugins](#custom-plugins)
 5. [Limitations - OS compatibility, etc.](#limitations)
 6. [Development - Guide for contributing to the module](#development)
 
-##Overview
+##[Overview](id:overview)
 
 This module installs and configures [Heka](http://hekad.readthedocs.org/en/latest/index.html), a metric/log/event router and processor.
 
-##Module Description
+##[Module Description](id:module-description)
 
 This module installs Heka via the published packages and configures it by templating TOML configuration files for both Heka's global configuration and for plugins.
 
-###Packages
+###[Packages](id:packages)
 
 This module uses the RPM packages available on Heka's Github releases page:
 
 [https://github.com/mozilla-services/heka/releases](https://github.com/mozilla-services/heka/releases)
 
-###Init scripts and Upstart/systemd files
+###[Init scripts and Upstart/systemd files](id:init-upstart-systemd-files)
 
 Because the Heka packages do not include init scripts or Upstart/systemd unit files, this module includes an Upstart file template for Red Hat/CentOS 6 and a systemd unit file for Red Hat/CentOS 7.
 
-###TOML config files
+###[TOML config files](id:toml-config-files)
 
-####Global Heka configuration
+####[Global Heka configuration](id:global-heka-configuration)
 
 The module templates `/etc/heka.toml`. Currently, it only specifies a `maxprocs` value. Other global Heka config values aren't added to the file but Heka sets these to its own defaults. See [Configuring hekad > Global configuration options](http://hekad.readthedocs.org/en/latest/config/index.html#global-configuration-options) for more info on what the 
 
-####TOML config files for plugins
+####[TOML config files for plugins](id:toml-config-files-for-plugins)
 
 This module has defined types and and accompanying ERB templates for a few commonly used plugins.
 
 This module also has a more generic defined type and ERB template so you can configure any Heka plugin with the module without having to 
 
-##Setup
+##[Setup](id:setup)
 
-###Setup Requirements
+###[Setup Requirements](id:setup-requirements)
 
 This module requires the following Puppet modules:
 
 * nanlui/staging
 
-##Usage
+##[Usage](id: usage)
 
-###Basic usage
+###[Basic usage](id:basic-usage)
 
 The following installs and configures Heka with it's default settings. The `maxprocs` in Heka's main config will be set to the value of the `processorcount` fact. All other 
 
@@ -75,7 +72,7 @@ The following installs and configures Heka with it's default settings. The `maxp
 class { '::heka':}
 ```
 
-####Parameter data types
+####[Parameter data types](id:parameter-data-types)
 
 **Booleans**
 
@@ -129,11 +126,11 @@ IP address/port combos in Heka TOML configs are entered as double-quoted strings
 }
 ```
 
-###Plugins
+###[Plugins](id:plugins)
 
-####Inputs
+####[Inputs](id:plugins-inputs)
 
-[**TcpInput**](id:plugins_inputs_tcpinput)
+[**TcpInput**](id:plugins-inputs-tcpinput)
 
 [Heka documentation: TcpInput](http://hekad.readthedocs.org/en/latest/config/inputs/tcp.html)
 
@@ -144,7 +141,7 @@ IP address/port combos in Heka TOML configs are entered as double-quoted strings
 }
 ```
 
-[**UdpInput**](id:plugins_inputs_udpinput)
+[**UdpInput**](id:plugins-inputs-udpinput)
 
 [Heka documentation: UdpInput](http://hekad.readthedocs.org/en/latest/config/inputs/udp.html)
 
@@ -155,7 +152,7 @@ IP address/port combos in Heka TOML configs are entered as double-quoted strings
 }
 ```
 
-####Custom plugins
+####[Custom plugins](id:custom-plugins)
 
 **Settings**
 
