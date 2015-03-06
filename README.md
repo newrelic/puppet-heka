@@ -154,13 +154,90 @@ IP address/port combos in Heka TOML configs are entered as double-quoted strings
 
 ####[Custom plugins](id:custom-plugins)
 
+You can use the `heka::plugin` defined type to generate TOML configs for plugins that the module doesn't already include:
+
+```bash
+::heka::plugin { 'dashboard3':
+  type => 'DashboardOutput',
+  settings => {
+    'address' => '"10.0.1.120:4354"',
+    'ticker_interval' => 6,
+  },
+}
+```
+
+The `type` parameter is required.
+
 **Settings**
 
-Coming soon...
+`settings` is a hash that will get used to generate the key/value pairs in the TOML file.
+
+```bash
+settings => {
+  'script_type' => '"lua"',
+  'filename' => '"lua_decoders/nginx_access.lua"',
+},
+```
+
+...would generate the following in the final TOML file:
+
+```bash
+filename = "lua_decoders/nginx_access.lua"
+script_type = "lua"
+```
 
 **Subsection settings**
 
-Coming soon...
+You can use the `subsetting_sections` parameter to specify any sections of subsettings a plugin might require:
+
+```bash
+  subsetting_sections => {
+    'config' => {
+      'log_format' => '\'$remote_addr - $remote_user [$time_local] "$request" $status $body_bytes_sent "$http_referer" "$http_user_agent"\'',
+      'type' => '"nginx.access"',
+    },
+  }
+```
+
+The `subsetting_sections` parameter above would generate the following TOML data:
+
+```bash
+[nginx_access_decoder.config]
+log_format = '$remote_addr - $remote_user [$time_local] "$request" $status $body_bytes_sent "$http_referer" "$http_user_agent"'
+type = "nginx.access"
+```
+
+A `heka::plugin` with a `subsetting_sections` parameter would look like:
+
+```bash
+::heka::plugin { 'nginx_access_decoder':
+  refresh_heka_service => true,
+  type => 'SandboxDecoder',
+  settings => {
+    'script_type' => '"lua"',
+    'filename' => '"lua_decoders/nginx_access.lua"',
+  },
+  subsetting_sections => {
+    'config' => {
+      'log_format' => '\'$remote_addr - $remote_user [$time_local] "$request" $status $body_bytes_sent "$http_referer" "$http_user_agent"\'',
+      'type' => '"nginx.access"',
+    },
+  }
+}
+```
+
+The rendered TOML file the above `heka::plugin` generates would be:
+
+```bash
+[nginx_access_decoder]
+type = "SandboxDecoder"
+filename = "lua_decoders/nginx_access.lua"
+script_type = "lua"
+
+  [nginx_access_decoder.config]
+  log_format = '$remote_addr - $remote_user [$time_local] "$request" $status $body_bytes_sent "$http_referer" "$http_user_agent"'
+  type = "nginx.access"
+```
 
 ##Limitations
 
