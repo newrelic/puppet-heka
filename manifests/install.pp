@@ -23,9 +23,15 @@ class heka::install (
 
   case $::operatingsystem {
     'RedHat', 'CentOS': {
+      
+      #Download the package first
+      staging::file { 'heka-package':
+        source => $package_download_url,
+      } ~>
+
       package { 'heka':
         ensure   => 'installed',
-        source   => $package_download_url,
+        source   => '/opt/staging/heka/heka-package',
         provider => $package_provider,
       }
     }
