@@ -25,7 +25,6 @@
   ],
 
   "dependencies": [
-    {"name": "puppetlabs/inifile", "version_requirement": ">= 1.2.0"},
     { "name": "nanliu/staging", "version_requirement": ">= 1.0.0" }
   ]
 }
