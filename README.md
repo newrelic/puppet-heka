@@ -128,6 +128,18 @@ IP address/port combos in Heka TOML configs are entered as double-quoted strings
 
 ###[Plugins](id:plugins)
 
+####Common parameters
+
+Each plugin's defined type and the custom plugin type have the following parameters in common:
+
+* `plugin_dir`: the directory the TOML plugin file will be created in; defaults to `/etc/heka`.
+* `plugin_file_name`: the name of the TOML plugin file; defaults to `$name.toml`.
+* `plugin_file_ensure`: the type of file resource to create; defaults to `file`.
+* `plugin_file_owner`: the owner of the TOML plugin file; defaults to `root`.
+* `plugin_file_group`: the group of the TOML plugin file; defaults to `root`.
+* `plugin_file_mode`: the mode of the TOML plugin file; defaults to `0644`.
+* `plugin_file_template`: the ERB template to use to generate the TOML plugin file
+
 ####[Inputs](id:plugins-inputs)
 
 #####[**TcpInput**](id:plugins_inputs_tcpinput)
