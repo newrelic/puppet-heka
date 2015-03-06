@@ -1,25 +1,14 @@
 # == Class: heka
 #
-# Full description of class heka here.
+# This is the main class of the module. It calls the ::install, ::config and ::service classes.
 #
 # === Parameters
 #
-# Document parameters here.
-#
-# [*sample_parameter*]
-#   Explanation of what this parameter affects and what it defaults to.
-#   e.g. "Specify one or more upstream ntp servers as an array."
-#
-# === Variables
-#
-# Here you should define a list of variables that this module would require.
-#
-# [*sample_variable*]
-#   Explanation of how this variable affects the funtion of this class and if
-#   it has a default. e.g. "The parameter enc_ntp_servers must be set by the
-#   External Node Classifier as a comma separated list of hostnames." (Note,
-#   global variables should be avoided in favor of class parameters as
-#   of Puppet 2.6.)
+# @param package_download_url String; the URL of the RPM/DEB package to install.
+# @param manage_service Bool; whether to have the module manage the Heka daemon. defaults to `true`
+# @param service_ensure String; the state the Heka daemon should be set to; defaults to `running`
+# @param service_enable Bool; whether the Heka daemon should be enabled to start on system boot; defaults to `true`
+# @param heka_daemon_name String; the name of the Heka daemon; defaults to `heka` for both Red Hat/CentOS and Debian/Ubuntu
 #
 # === Examples
 #

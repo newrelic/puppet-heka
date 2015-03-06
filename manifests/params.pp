@@ -1,22 +1,10 @@
 # == Class: heka::params
 #
-# Full description of class heka here.
+# This class contains parameters used by other subclasses in the module.
 #
 # === Parameters
 #
-# Document parameters here.
-#
-# [*sample_parameter*]
-#   Explanation of what this parameter affects and what it defaults to.
-#   e.g. "Specify one or more upstream ntp servers as an array."
-#
-# === Parameters
-#
-# Coming soon...
-#
-# === Examples
-#
-#  class { 'heka': }
+# This class doesn't have any settable parameters. It provides parameters to other classes.
 #
 # === Authors
 #
