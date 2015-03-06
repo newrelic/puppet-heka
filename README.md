@@ -18,8 +18,8 @@
         * [Parameter data types](#parameter-data-types)
     * [Plugins](#plugins)
         * [Inputs](#plugins-inputs)
-            * [`TcpInput`](#plugins-inputs-tcpinput)
-            * [`UdpInput`](#plugins-inputs-udpinput)
+            * [`TcpInput`](#plugins_inputs_tcpinput)
+            * [`UdpInput`](#plugins_inputs_udpinput)
         * [Custom plugins](#custom-plugins)
 5. [Limitations - OS compatibility, etc.](#limitations)
 6. [Development - Guide for contributing to the module](#development)
@@ -62,7 +62,7 @@ This module requires the following Puppet modules:
 
 * nanlui/staging
 
-##[Usage](id: usage)
+##[Usage](id:usage)
 
 ###[Basic usage](id:basic-usage)
 
@@ -130,7 +130,7 @@ IP address/port combos in Heka TOML configs are entered as double-quoted strings
 
 ####[Inputs](id:plugins-inputs)
 
-[**TcpInput**](id:plugins-inputs-tcpinput)
+#####[**TcpInput**](id:plugins_inputs_tcpinput)
 
 [Heka documentation: TcpInput](http://hekad.readthedocs.org/en/latest/config/inputs/tcp.html)
 
@@ -141,7 +141,7 @@ IP address/port combos in Heka TOML configs are entered as double-quoted strings
 }
 ```
 
-[**UdpInput**](id:plugins-inputs-udpinput)
+#####[**UdpInput**](id:plugins_inputs_udpinput)
 
 [Heka documentation: UdpInput](http://hekad.readthedocs.org/en/latest/config/inputs/udp.html)
 
