@@ -140,6 +140,14 @@ Each plugin's defined type and the custom plugin type have the following paramet
 * `plugin_file_mode`: the mode of the TOML plugin file; defaults to `0644`.
 * `plugin_file_template`: the ERB template to use to generate the TOML plugin file
 
+####Plugin type settings
+
+Heka allows just using the plugin's type as a name if there is only one instance of that plugin that's configured.
+
+Plugins configured via this module, however, require explicit names. The `type` setting for the plugin is already specified for the plugin types the module includes. 
+
+You'll have to specify the type if you use the `heka::plugin` type to create a custom plugin config.
+
 ####[Inputs](id:plugins-inputs)
 
 #####[**TcpInput**](id:plugins_inputs_tcpinput)
