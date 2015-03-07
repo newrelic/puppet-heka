@@ -34,8 +34,7 @@ class heka::install (
         provider => $package_provider,
       }
     }
-
-    'Debian', 'Ubuntu': {  
+    'Debian', 'Ubuntu': {
       #Download the package first
       staging::file { 'heka-package':
         source => $package_download_url,
@@ -47,7 +46,6 @@ class heka::install (
         provider => $package_provider,
       }
     }
-
     default: { fail("${::operatingsystem} is not a supported operating system!") }
   }
 
