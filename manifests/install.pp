@@ -23,18 +23,31 @@ class heka::install (
 
   case $::operatingsystem {
     'RedHat', 'CentOS': {
-      
       #Download the package first
       staging::file { 'heka-package':
         source => $package_download_url,
       } ~>
-
+      #...then install it:
       package { 'heka':
         ensure   => 'installed',
         source   => '/opt/staging/heka/heka-package',
         provider => $package_provider,
       }
     }
+
+    'Debian', 'Ubuntu': {  
+      #Download the package first
+      staging::file { 'heka-package':
+        source => $package_download_url,
+      } ~>
+      #...then install it:
+      package { 'heka':
+        ensure   => 'installed',
+        source   => '/opt/staging/heka/heka-package',
+        provider => $package_provider,
+      }
+    }
+
     default: { fail("${::operatingsystem} is not a supported operating system!") }
   }
 
