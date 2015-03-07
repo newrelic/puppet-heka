@@ -71,6 +71,17 @@ class heka::config (
         default: { fail("${::operatingsystemmajrelease} is not a supported Red Hat/CentOS release!") }
       }
     }
+     'Debian', 'Ubuntu': {
+        #File resource for /etc/init/heka.conf, the Upstart config file:
+        file { '/etc/init/heka.conf':
+          ensure  => 'file',
+          owner   => 'root',
+          group   => 'root',
+          mode    => '0644',
+          content => template('heka/heka.conf.erb'),
+          notify  => Service[$heka_daemon_name],
+        }
+     }
     default: { fail("${::operatingsystem} is not a supported operating system!") }
   }
 
