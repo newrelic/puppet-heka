@@ -66,7 +66,7 @@ This module requires the following Puppet modules:
 
 ###[Basic usage](id:basic-usage)
 
-The following installs and configures Heka with it's default settings. The `maxprocs` in Heka's main config will be set to the value of the `processorcount` fact. All other 
+The following installs and configures Heka with it's default settings. The `maxprocs` in Heka's main config will be set to the value of the `processorcount` fact. All other global config values won't be printed in the main config file unless specified as parameters. If they aren't printed in the file, Heka will use its own internal default value for each setting.
 
 ```bash
 class { '::heka':}
