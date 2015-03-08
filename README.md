@@ -20,6 +20,7 @@
         * [Inputs](#plugins-inputs)
             * [`TcpInput`](#plugins_inputs_tcpinput)
             * [`UdpInput`](#plugins_inputs_udpinput)
+            * [`StatsdInput`](#plugins_inputs_statsdinput)
         * [Custom plugins](#custom-plugins)
 5. [Limitations - OS compatibility, etc.](#limitations)
 6. [Development - Guide for contributing to the module](#development)
@@ -192,6 +193,18 @@ You'll have to specify the type if you use the `heka::plugin` type to create a c
 ::heka::plugin::input::udpinput { 'udpinput1':
   refresh_heka_service => true,
   address => "${::ipaddress_lo}:4484"
+}
+```
+
+####[**StatsdInput**](id:plugins_inputs_statsdinput)
+
+[Heka documentation: UdpInput](http://hekad.readthedocs.org/en/latest/config/inputs/udp.html)
+
+**Note:** An instance of this plugin **must** be accompanied by an instance of the `StatAccumInput` in order for Heka to start properly!
+
+```bash
+::heka::plugin::input::statsdinput { 'statsdinput1':
+  address => "0.0.0.0:8125"
 }
 ```
 
