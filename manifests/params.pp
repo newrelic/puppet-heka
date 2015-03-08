@@ -27,6 +27,9 @@ class heka::params {
   #Parameter for the share_dir in the [hekad] section of a heka.toml file; defaults to '/usr/share/heka' (string)
   $heka_share_dir = '/usr/share/heka'
   
+  #A hash for global settings that the module doesn't already have explicit parameters for
+  $global_config_settings = {}
+  
   ##############################
   # Heka package parameters
   ##############################

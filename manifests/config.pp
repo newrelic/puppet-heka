@@ -7,6 +7,7 @@
 # === Parameters
 #
 # @param heka_daemon_name String; the name of the Heka daemon; defaults to `heka` for both Red Hat/CentOS and Debian/Ubuntu
+# @param global_config_settings Hash; a hash of global Heka config options; defaults to an empty hash, `{}`
 #
 # === Examples
 #
@@ -20,8 +21,12 @@
 #
 # Copyright 2015 Nicholas Chappell, unless otherwise noted.
 class heka::config (
-  $heka_daemon_name = $heka::params::heka_daemon_name,
+  $heka_daemon_name       = $heka::params::heka_daemon_name,
+  $global_config_settings = $heka::params::global_config_settings,
 ) inherits heka::params {
+
+  #Do some validation of the class' parameters:
+  validate_hash($global_config_settings)
 
   #Manage /etc/heka/
   file {'/etc/heka':

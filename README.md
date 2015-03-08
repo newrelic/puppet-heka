@@ -46,7 +46,19 @@ Because the Heka packages do not include init scripts or Upstart/systemd unit fi
 
 ####[Global Heka configuration](id:global-heka-configuration)
 
-The module templates `/etc/heka.toml`. Currently, it only specifies a `maxprocs` value. Other global Heka config values aren't added to the file but Heka sets these to its own defaults. See [Configuring hekad > Global configuration options](http://hekad.readthedocs.org/en/latest/config/index.html#global-configuration-options) for more info on what the 
+The module templates `/etc/heka.toml`. Currently, it only specifies a `maxprocs` value. 
+
+To specify global configuration options the module doesn't explicitly provide parameters for, you can use the `global_config_settings` parameter, which is a hash and uses the key/value pairs as the key/value pairs printed in `heka.toml`:
+
+```bash
+class { '::heka':
+  global_config_settings => {
+    'poolsize' => 10000,
+  },
+}
+```
+
+Heka sets these to its own defaults. See [Configuring hekad > Global configuration options](http://hekad.readthedocs.org/en/latest/config/index.html#global-configuration-options) for more info on what global configuration options are available and what Heka's internal default values are.
 
 ####[TOML config files for plugins](id:toml-config-files-for-plugins)
 
@@ -70,6 +82,17 @@ The following installs and configures Heka with it's default settings. The `maxp
 
 ```bash
 class { '::heka':}
+```
+
+To specify a custom configuration option the module doesn't provide an explicit parameter for, use the `global_config_settings` parameter: 
+
+```bash
+class { '::heka':
+  global_config_settings => {
+    'poolsize' => 10000,
+    'hostname' => "${::fqdn}",
+  },
+}
 ```
 
 ####[Parameter data types](id:parameter-data-types)
