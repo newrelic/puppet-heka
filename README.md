@@ -91,12 +91,12 @@ To specify a custom configuration option the module doesn't provide an explicit 
 class { '::heka':
   global_config_settings => {
     'poolsize' => 10000,
-    'hostname' => "${::fqdn}",
+    'hostname' => "\"${::fqdn}\"",
   },
 }
 ```
 
-####[Parameter data types](id:parameter-data-types)
+####[Puppet parameter and Heka data types](id:parameter-data-types)
 
 **Booleans**
 
@@ -113,13 +113,37 @@ Config values that are supposed to be booleans in a TOML config can be used as a
 
 **Strings**
 
-Config values that are supposed to be double-quoted strings in the TOML file should have the double quotes included in the parameter in your Puppet code:
+Config values that are supposed to be double-quoted strings in the TOML file should be entered as single-quoted strings in your Puppet code:
 
 ```bash
 ::heka::plugin::input::tcpinput { 'tcpinput1':
 ...
-  address => ''"${::ipaddress_lo}:5565"''
+  address => '127.0.0.1:5565'
 ...
+}
+```
+
+**Note:** This only applies to the included defined types already included in the module. If you use the generic `heka::plugin` type or the `global_config_settings` parameter of the main `heka` class, you must enter your value parameters for strings as they will appear in the TOML file. This means including the double-quotes:
+
+```bash
+::heka::plugin { 'dashboard1':
+  type => 'DashboardOutput',
+  settings => {
+    'address' => '"0.0.0.0:4352"',
+...
+  },
+}
+```
+
+If you need to interpolate Facter facts, enclose the whole parameter in double-quotes and escape the internal set of dobule-quotes that need to be printed:
+
+```bash
+::heka::plugin { 'dashboard1':
+  type => 'DashboardOutput',
+  settings => {
+    'address' => "\"${::ipaddress_lo}:4352\"",
+...
+  },
 }
 ```
 
@@ -140,12 +164,22 @@ Config values that are supposed to be integers in the TOML config file can be wr
 
 **IP addresses and ports**
 
-IP address/port combos in Heka TOML configs are entered as double-quoted strings. You can use Facter facts for IP addresses by using `${}` for variable interpolation in your Puppet code:
+IP address/port combos in Heka TOML configs are entered as double-quoted strings. You can enter them in your Puppet code as regular strings with single quotes:
 
 ```bash
 ::heka::plugin::input::tcpinput { 'tcpinput1':
 ...
-  address => '"${::ipaddress_lo}:5565"'
+  address => '127.0.0.1:5565'
+...
+}
+```
+
+You can use Facter facts for IP addresses by using `${}` inside of double quotes for variable interpolation in your Puppet code:
+
+```bash
+::heka::plugin::input::tcpinput { 'tcpinput1':
+...
+  address => "${::ipaddress_lo}:5565"
 ...
 }
 ```
