@@ -56,7 +56,6 @@ define heka::plugin::input::tcpinput (
   $plugin_file_template = 'heka/plugins/inputs/heka_tcpinput_plugin.toml.erb',
   $address              = undef,
   $decoder              = undef,
-  $parser_type          = 'token',
   $use_tls              = false,
   $net                  = undef,
   $keep_alive           = false,

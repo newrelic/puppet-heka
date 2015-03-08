@@ -55,7 +55,6 @@ define heka::plugin::input::udpinput (
   $plugin_file_template = 'heka/plugins/inputs/heka_udpinput_plugin.toml.erb',
   $address              = undef,
   $decoder              = undef,
-  $parser_type          = 'token',
   $net                  = undef,
   $splitter             = undef,
 
