@@ -4,6 +4,10 @@
 # ANY MANUAL CHANGES TO IT WILL GET OVERWRITTEN! #
 ##################################################
 
+#This TOML config file contains Heka's global configuration options. See the Heka 
+#documentation for more information on available global configuration options:
+# https://hekad.readthedocs.org/en/latest/config/index.html#global-configuration-options
+
 [hekad]
 maxprocs = <%= @heka_max_procs.to_s %>
 
