@@ -22,6 +22,8 @@
             * [`UdpInput`](#plugins_inputs_udpinput)
             * [`StatsdInput`](#plugins_inputs_statsdinput)
             * [`StatAccumInput `](#plugins_inputs_stataccuminput)
+        * [Outputs](#plugins-outputs)
+            * [`CarbonOutput`](#iplugins_outputs_carbonoutput)
         * [Custom plugins](#custom-plugins)
 5. [Limitations - OS compatibility, etc.](#limitations)
 6. [Development - Guide for contributing to the module](#development)
@@ -254,6 +256,20 @@ You'll have to specify the type if you use the `heka::plugin` type to create a c
   refresh_heka_service => true,
   ticker_interval => 1,
   emit_in_fields => true,
+}
+```
+
+####[Outputs](id:plugins-outputs)
+
+#####[** CarbonOutput**](id:plugins_outputs_carbonoutput)
+
+[Heka documentation: CarbonOutput](https://hekad.readthedocs.org/en/latest/config/outputs/carbon.html)
+
+```bash
+::heka::plugin::output::carbonoutput { 'carbonoutput1':
+  address => 'graphiteserver.local:2003',
+  message_matcher => "Type == 'heka.statmetric'",
+  protocol => 'udp',
 }
 ```
 
