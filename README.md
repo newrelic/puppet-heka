@@ -233,7 +233,7 @@ You'll have to specify the type if you use the `heka::plugin` type to create a c
 }
 ```
 
-####[**StatsdInput**](id:plugins_inputs_statsdinput)
+#####[**StatsdInput**](id:plugins_inputs_statsdinput)
 
 [Heka documentation: UdpInput](http://hekad.readthedocs.org/en/latest/config/inputs/udp.html)
 
@@ -261,7 +261,7 @@ You'll have to specify the type if you use the `heka::plugin` type to create a c
 
 ####[Outputs](id:plugins-outputs)
 
-#####[** CarbonOutput**](id:plugins_outputs_carbonoutput)
+#####[**CarbonOutput**](id:plugins_outputs_carbonoutput)
 
 [Heka documentation: CarbonOutput](https://hekad.readthedocs.org/en/latest/config/outputs/carbon.html)
 
