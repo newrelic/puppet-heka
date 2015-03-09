@@ -21,6 +21,7 @@
             * [`TcpInput`](#plugins_inputs_tcpinput)
             * [`UdpInput`](#plugins_inputs_udpinput)
             * [`StatsdInput`](#plugins_inputs_statsdinput)
+            * [`StatAccumInput `](#plugins_inputs_stataccuminput)
         * [Custom plugins](#custom-plugins)
 5. [Limitations - OS compatibility, etc.](#limitations)
 6. [Development - Guide for contributing to the module](#development)
@@ -239,6 +240,20 @@ You'll have to specify the type if you use the `heka::plugin` type to create a c
 ```bash
 ::heka::plugin::input::statsdinput { 'statsdinput1':
   address => "0.0.0.0:8125"
+}
+```
+
+####[**StatAccumInput**](id:plugins_inputs_stataccuminput)
+
+[Heka documentation: StatAccumInput](https://hekad.readthedocs.org/en/latest/config/inputs/stataccum.html)
+
+**Note:** An instance of this plugin **must** be used in order for instances of the `StatsdInput` plugin to work properly!
+
+```bash
+::heka::plugin::input::stataccuminput { 'stataccuminput1':
+  refresh_heka_service => true,
+  ticker_interval => 1,
+  emit_in_fields => true,
 }
 ```
 
