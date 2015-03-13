@@ -1,0 +1,25 @@
+##################################################
+#      !!!!!!!!!!!!!!!!WARNING!!!!!!!!!!!!       #
+#        This file is managed by Puppet.         #
+# ANY MANUAL CHANGES TO IT WILL GET OVERWRITTEN! #
+##################################################
+
+#This TOML config file contains Heka's global configuration options. See the Heka 
+#documentation for more information on available global configuration options:
+# https://hekad.readthedocs.org/en/latest/config/index.html#global-configuration-options
+
+[hekad]
+maxprocs = <%= @heka_max_procs.to_s %>
+
+<%#- Make sure the settings hash isn't empty before we start iterating over it: -%>
+<%- if @global_config_settings.empty? != true -%>
+#Additional global config options:
+<%#- Sort the settings hash so the order they get added to the rendered file doesn't differ from one Puppet run to the next: -%>
+<%- @global_config_settings.sort_by {|key, value| key}.each do |key, value| -%>
+<%#- If the value isn't empty... -%>
+<%- if value -%>
+<%#- ...add it to the rendered file: -%>
+<%= key %> = <%= value %>
+<%- end -%>
+<%- end -%>
+<%- end -%>

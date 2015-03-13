@@ -1,0 +1,15 @@
+##################################################
+#      !!!!!!!!!!!!!!!!WARNING!!!!!!!!!!!!       #
+#        This file is managed by Puppet.         #
+# ANY MANUAL CHANGES TO IT WILL GET OVERWRITTEN! #
+##################################################
+
+# heka - data acquisition and collection made easy
+description "log collection and routing daemon"
+
+start on startup and started network
+stop on shutdown
+
+respawn
+
+exec /usr/bin/hekad -config=/etc/heka

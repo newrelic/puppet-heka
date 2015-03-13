@@ -1,0 +1,47 @@
+##################################################
+#      !!!!!!!!!!!!!!!!WARNING!!!!!!!!!!!!       #
+#        This file is managed by Puppet.         #
+# ANY MANUAL CHANGES TO IT WILL GET OVERWRITTEN! #
+##################################################
+
+# This plugin file is for a StatAccumInput. See the Heka documentation for more information on StatAccumInput inputs:
+# https://hekad.readthedocs.org/en/latest/config/inputs/stataccum.html
+
+[<%= @name %>]
+type = "StatAccumInput"
+<%- if @emit_in_payload -%>
+emit_in_payload = <%= @emit_in_payload %>
+<%- end -%>
+<%- if @emit_in_fields -%>
+emit_in_fields = <%= @emit_in_fields %>
+<%- end -%>
+<%- if @percent_threshold -%>
+percent_threshold = <%= @percent_threshold %>
+<%- end -%>
+<%- if @ticker_interval -%>
+ticker_interval = <%= @ticker_interval %>
+<%- end -%>
+<%- if @message_type -%>
+message_type = "<%= @message_type %>"
+<%- end -%>
+<%- if @legacy_namespaces -%>
+legacy_namespaces = <%= @legacy_namespaces %>
+<%- end -%>
+<%- if @global_prefix -%>
+global_prefix = "<%= @global_prefix %>"
+<%- end -%>
+<%- if @counter_prefix -%>
+counter_prefix = "<%= @counter_prefix %>"
+<%- end -%>
+<%- if @timer_prefix -%>
+timer_prefix = "<%= @timer_prefix %>"
+<%- end -%>
+<%- if @gauge_prefix -%>
+gauge_prefix = "<%= @gauge_prefix %>"
+<%- end -%>
+<%- if @statsd_prefix -%>
+statsd_prefix = "<%= @statsd_prefix %>"
+<%- end -%>
+<%- if @delete_idle_stats -%>
+delete_idle_stats = <%= @delete_idle_stats -%>
+<%- end -%>

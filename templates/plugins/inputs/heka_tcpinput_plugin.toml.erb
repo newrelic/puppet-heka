@@ -1,0 +1,32 @@
+##################################################
+#      !!!!!!!!!!!!!!!!WARNING!!!!!!!!!!!!       #
+#        This file is managed by Puppet.         #
+# ANY MANUAL CHANGES TO IT WILL GET OVERWRITTEN! #
+##################################################
+
+# This plugin file is for a TCP input. See the Heka documentation for more information on TCP inputs:
+# http://hekad.readthedocs.org/en/latest/config/inputs/tcp.html
+
+[<%= @name %>]
+type = "TcpInput"
+<%- if @address -%>
+address = "<%= @address -%>"
+<%- end -%>
+<%- if @decoder -%>
+decoder = "<%= @decoder -%>"
+<%- end -%>
+<%- if @use_tls -%>
+use_tls = <%= @use_tls -%>
+<%- end -%>
+<%- if @net -%>
+net = "<%= @net -%>"
+<%- end -%>
+<%- if @keep_alive -%>
+keep_alive = <%= @keep_alive -%>
+<%- end -%>
+<%- if @keep_alive_period -%>
+keep_alive_period = "<%= @keep_alive_period -%>"
+<%- end -%>
+<%- if @splitter -%>
+splitter = "<%= @splitter -%>"
+<%- end -%>

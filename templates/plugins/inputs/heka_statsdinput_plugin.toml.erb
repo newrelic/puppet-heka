@@ -1,0 +1,34 @@
+##################################################
+#      !!!!!!!!!!!!!!!!WARNING!!!!!!!!!!!!       #
+#        This file is managed by Puppet.         #
+# ANY MANUAL CHANGES TO IT WILL GET OVERWRITTEN! #
+##################################################
+
+# This plugin file is for a StatsdInput. See the Heka documentation for more information on statsd inputs:
+# https://hekad.readthedocs.org/en/latest/config/inputs/statsd.html
+
+[<%= @name %>]
+type = "StatsdInput"
+<%- if @address -%>
+address = "<%= @address -%>"
+<%- end -%>
+<%- if @stat_accum_name -%>
+stat_accum_name = "<%= @stat_accum_name -%>"
+<%- end -%>
+<%- if @max_msg_size -%>
+max_msg_size = <%= @max_msg_size -%>
+<%- end -%>
+<%- if @decoder -%>
+decoder = "<%= @decoder -%>"
+<%- end -%>
+<%- if @synchronous_decode -%>
+synchronous_decode = <%= @synchronous_decode -%>
+<%- end -%>
+<%- if @send_decode_failures -%>
+send_decode_failures = <%= @send_decode_failures -%>
+<%- end -%>
+<%- if @splitter -%>
+splitter = "<%= @splitter -%>"
+<%- end -%>
+
+
