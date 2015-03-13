@@ -62,13 +62,13 @@ class { '::heka':
 }
 ```
 
-Heka sets these to its own defaults. See [Configuring hekad > Global configuration options](http://hekad.readthedocs.org/en/latest/config/index.html#global-configuration-options) for more info on what global configuration options are available and what Heka's internal default values are.
+Heka sets any global config settings that are not specified to its own internal defaults. See [Configuring hekad > Global configuration options](http://hekad.readthedocs.org/en/latest/config/index.html#global-configuration-options) for more info on what global configuration options are available and what Heka's internal default values are.
 
 ####[TOML config files for plugins](id:toml-config-files-for-plugins)
 
 This module has defined types and and accompanying ERB templates for a few commonly used plugins.
 
-This module also has a more generic defined type and ERB template so you can configure any Heka plugin with the module without having to 
+This module also has a more generic defined type and ERB template so you can configure any Heka plugin the module doesn't already include a defined type for.
 
 ##[Setup](id:setup)
 
