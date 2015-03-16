@@ -17,9 +17,7 @@
 #
 # Nicholas Chappell <nchappell@newrelic.com>
 #
-# === Copyright
-#
-# Copyright 2015 Nicholas Chappell, unless otherwise noted.
+
 class heka::config (
   $heka_daemon_name       = $heka::params::heka_daemon_name,
   $global_config_settings = $heka::params::global_config_settings,

@@ -10,9 +10,6 @@
 #
 # Nicholas Chappell <nchappell@newrelic.com>
 #
-# === Copyright
-#
-# Copyright 2015 Nicholas Chappell, unless otherwise noted.
 
 class heka::params {
 

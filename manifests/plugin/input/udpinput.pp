@@ -37,9 +37,6 @@
 #
 # Nicholas Chappell <nchappell@newrelic.com>
 #
-# === Copyright
-#
-# Copyright 2015 Nicholas Chappell, unless otherwise noted.
 
 define heka::plugin::input::udpinput (
   #Common plugin parameters
