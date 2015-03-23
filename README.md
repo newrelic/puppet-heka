@@ -366,4 +366,4 @@ Only Red Hat and CentOS are supported right now.
 
 ##Development
 
-Make PRs against the develop branch on Github: [https://github.com/nickchappell/puppet-heka/tree/develop](https://github.com/nickchappell/puppet-heka/tree/develop)
+Fork this [repository](https://github.com/nickchappell/puppet-heka/tree/develop) and create feature branches against the [develop](https://github.com/nickchappell/puppet-heka/tree/develop) branch. Please keep one feature/change/bug fix per feature branch.
