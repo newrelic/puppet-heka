@@ -4,9 +4,9 @@
   "author": "Nicholas Chappell",
   "summary": "This module installs and configure Heka, a metrics and event stream processor.",
   "license": "Apache 2.0",
-  "source": "https://github.com/nickchappell/puppet-heka",
-  "project_page": "https://github.com/nickchappell/puppet-heka",
-  "issues_url": "https://github.com/nickchappell/puppet-heka/issues",
+  "source": "https://github.com/newrelic/puppet-heka",
+  "project_page": "https://github.com/newrelic/puppet-heka",
+  "issues_url": "https://github.com/newrelic/puppet-heka/issues",
   "operatingsystem_support": [
     {
       "operatingsystem": "CentOS",

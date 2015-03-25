@@ -14,9 +14,7 @@
 #
 # Nicholas Chappell <nchappell@newrelic.com>
 #
-# === Copyright
-#
-# Copyright 2015 Nicholas Chappell, unless otherwise noted.
+
 class heka::install (
   $package_download_url = $heka::params::package_download_url,
 ) inherits heka::params {

@@ -13,9 +13,7 @@
 #
 # Nicholas Chappell <nchappell@newrelic.com>
 #
-# === Copyright
-#
-# Copyright 2015 Nicholas Chappell, unless otherwise noted.
+
 class heka::service (
   $service_ensure   = $heka::params::service_ensure,
   $service_enable   = $heka::params::service_enable,

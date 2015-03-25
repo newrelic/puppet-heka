@@ -1,5 +1,5 @@
 #puppet-heka
-> [github.com/nickchappell/puppet-heka](https://github.com/nickchappell/puppet-heka)
+> [github.com/newrelic/puppet-heka](https://github.com/newrelic/puppet-heka)
 - - -
 
 #### Table of Contents
@@ -366,4 +366,8 @@ Only Red Hat and CentOS are supported right now.
 
 ##Development
 
-Make PRs against the develop branch on Github: [https://github.com/nickchappell/puppet-heka/tree/develop](https://github.com/nickchappell/puppet-heka/tree/develop)
+Fork this [repository](https://github.com/newrelic/puppet-heka/tree/develop) and create feature branches against the [develop](https://github.com/newrelic/puppet-heka/tree/develop) branch. Please keep one feature/change/bug fix per feature branch.
+
+###Contribution guidelines
+
+You are welcome to send pull requests to us - however, by doing so you agree that you are granting New Relic a non-exclusive, non-revokable, no-cost license to use the code, algorithms, patents, and ideas in that code in our products if we so choose. You also agree the code is provided as-is and you provide no warranties as to its fitness or correctness for any purpose.

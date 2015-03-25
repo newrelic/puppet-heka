@@ -19,9 +19,7 @@
 #
 # Nicholas Chappell <nchappell@newrelic.com>
 #
-# === Copyright
-#
-# Copyright 2015 Nicholas Chappell, unless otherwise noted.
+
 class heka (
   $package_download_url   = $heka::params::package_download_url,
   $manage_service         = $heka::params::manage_service,
