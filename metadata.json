@@ -1,7 +1,7 @@
 {
-  "name": "nickchappell/heka",
+  "name": "newrelic/heka",
   "version": "0.1.0",
-  "author": "Nicholas Chappell",
+  "author": "New Relic",
   "summary": "This module installs and configure Heka, a metrics and event stream processor.",
   "license": "Apache 2.0",
   "source": "https://github.com/newrelic/puppet-heka",
