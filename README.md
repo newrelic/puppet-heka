@@ -99,6 +99,17 @@ class { '::heka':
 }
 ```
 
+####Package versioning
+
+To specify a particular Heka package version to install, use the `package_download_url` and `version` parameters:
+
+```bash
+class { '::heka':
+  version => '0.9.1',
+  package_download_url => 'https://github.com/mozilla-services/heka/releases/download/v0.9.1/heka-0_9_1-linux-amd64.rpm',
+}
+```
+
 ####[Puppet parameter and Heka data types](id:parameter-data-types)
 
 **Booleans**
