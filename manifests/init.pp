@@ -39,6 +39,7 @@ class heka (
     #class on the right.
     class { 'heka::install':
       package_download_url => $package_download_url,
+      version => $version,
     } ~>
     class { 'heka::config': 
       global_config_settings => $global_config_settings
