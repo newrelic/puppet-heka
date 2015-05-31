@@ -82,11 +82,21 @@ This module requires the following Puppet modules:
 
 ###[Basic usage](id:basic-usage)
 
-The following installs and configures Heka with it's default settings. The `maxprocs` in Heka's main config will be set to the value of the `processorcount` fact. All other global config values won't be printed in the main config file unless specified as parameters. If they aren't printed in the file, Heka will use its own internal default value for each setting.
+The following installs and configures Heka with it's default settings and manages the Heka daemon once everything is installed and configured. The `maxprocs` in Heka's main config will be set to the value of the `processorcount` fact. All other global config values won't be printed in the main config file unless specified as parameters. If they aren't printed in the file, Heka will use its own internal default value for each setting.
 
 ```bash
 class { '::heka':}
 ```
+
+You can optionally choose to not manage the Heka service:
+
+```bash
+class { '::heka':
+  manage_service => false,
+}
+```
+
+**Note:** The value of this parameter is also used as the default for any plugins configured by the module and will control whether they try to notify the Heka daemon. If the Heka service is not managed by the main `heka` class, make sure that you don't explicitly set any plugins to notify the daemon with their `refresh_heka_service` parameter. If you do, catalog compilation will fail, as the Heka service won't be in the catalog for the plugin to send notifications to. 
 
 To specify a custom configuration option the module doesn't provide an explicit parameter for, use the `global_config_settings` parameter: 
 
