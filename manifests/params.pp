@@ -13,7 +13,7 @@
 
 class heka::params {
 
-  $version = '0.9.1'
+  $version = '0.9.2'
 
   ##############################
   # Heka general parameters
@@ -40,13 +40,13 @@ class heka::params {
     'RedHat', 'CentOS': {
      #Pick the right package provider:
       $package_provider = 'rpm'
-      $package_download_url = 'https://github.com/mozilla-services/heka/releases/download/v0.9.1/heka-0_9_1-linux-amd64.rpm'
+      $package_download_url = 'https://github.com/mozilla-services/heka/releases/download/v0.9.2/heka-0_9_2-linux-amd64.rpm'
     }
     #Debian/Ubuntu systems:
     'Debian', 'Ubuntu': {
      #Pick the right package provider:
       $package_provider = 'dpkg'
-      $package_download_url = 'https://github.com/mozilla-services/heka/releases/download/v0.9.1/heka_0.9.1_amd64.deb'
+      $package_download_url = 'https://github.com/mozilla-services/heka/releases/download/v0.9.2/heka_0.9.2_amd64.deb'
     }
   }
 
