@@ -54,9 +54,14 @@ define heka::plugin (
   validate_string($plugin_file_name)
   validate_string($plugin_file_template)
   validate_string($heka_daemon_name)
-  validate_string($type)
   validate_hash($settings)
   validate_hash($subsetting_sections)
+  
+  #Fail if the user leaves the $type parameter empty:
+  if $type == undef {
+    fail('The $type parameter cannot be empty!')
+  }
+
 
  #If the refresh_heka_service parameter is set to true...
   if $refresh_heka_service == true {
