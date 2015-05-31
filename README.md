@@ -105,10 +105,12 @@ To specify a particular Heka package version to install, use the `package_downlo
 
 ```bash
 class { '::heka':
-  version => '0.9.1',
-  package_download_url => 'https://github.com/mozilla-services/heka/releases/download/v0.9.1/heka-0_9_1-linux-amd64.rpm',
+  version => '0.9.2',
+  package_download_url => 'https://github.com/mozilla-services/heka/releases/download/v0.9.2/heka-0_9_2-linux-amd64.rpm',
 }
 ```
+
+If you specify an older version than what is currently installed, the module will downgrade the package. However, make sure that the plugins and configuration options you're specifying with the module's plugin types are compatible with the version you are downgrading to!
 
 ####[Puppet parameter and Heka data types](id:parameter-data-types)
 
