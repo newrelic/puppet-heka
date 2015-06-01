@@ -21,6 +21,7 @@
 class heka::config (
   $heka_daemon_name       = $heka::params::heka_daemon_name,
   $global_config_settings = $heka::params::global_config_settings,
+  $heka_max_procs         = $heka::params::heka_max_procs
 ) inherits heka::params {
 
   #Do some validation of the class' parameters:

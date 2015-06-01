@@ -26,6 +26,7 @@ class heka (
   $service_ensure         = $heka::params::service_ensure,
   $service_enable         = $heka::params::service_enable,
   $global_config_settings = $heka::params::global_config_settings,
+  $heka_max_procs         = $heka::params::heka_max_procs
 ) inherits heka::params {
 
   #Do some validation of the class' parameters:
@@ -39,7 +40,8 @@ class heka (
       package_download_url => $package_download_url,
     } ~>
     class { 'heka::config': 
-      global_config_settings => $global_config_settings
+      global_config_settings => $global_config_settings,
+      heka_max_procs         => $heka_max_procs
     } ~>
     class { 'heka::service': }
   }
