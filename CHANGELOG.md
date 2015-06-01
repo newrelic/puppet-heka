@@ -1,6 +1,10 @@
 #Changelog
 - - -
 
+###version 0.1.1 (unreleased)
+
+* Added package versioning support
+
 ###version 0.1 (March 13th, 2015)
 
 * Added Heka installation via packages, init script/systemd unit file templating and service management
