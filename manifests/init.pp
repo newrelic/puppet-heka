@@ -42,7 +42,8 @@ class heka (
       version => $version,
     } ~>
     class { 'heka::config': 
-      global_config_settings => $global_config_settings
+      global_config_settings => $global_config_settings,
+      manage_service         => $manage_service
     } ~>
     class { 'heka::service': }
   }
@@ -52,7 +53,10 @@ class heka (
       package_download_url => $package_download_url,
       version => $version,
     } ~>
-    class { 'heka::config': }
+    class { 'heka::config': 
+      global_config_settings => $global_config_settings,
+      manage_service         => $manage_service
+    }
   }
 
 }

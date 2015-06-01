@@ -45,7 +45,7 @@ define heka::plugin::output::carbonoutput (
   $plugin_file_owner    = 'root',
   $plugin_file_group    = 'root',
   $plugin_file_mode     = '0644',
-  $refresh_heka_service = true,
+  $refresh_heka_service = $heka::manage_service,
   $heka_daemon_name     = 'heka',
   #CarbonOutput plugin specific parameters
   $plugin_file_template = 'heka/plugins/outputs/heka_carbonoutput_plugin.toml.erb',

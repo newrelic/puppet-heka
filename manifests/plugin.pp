@@ -39,7 +39,7 @@ define heka::plugin (
   $plugin_file_group    = 'root',
   $plugin_file_mode     = '0644',
   $plugin_file_template = 'heka/plugins/heka_plugin.toml.erb',
-  $refresh_heka_service = true,
+  $refresh_heka_service = $heka::manage_service,
   $heka_daemon_name     = 'heka',
   $type                 = undef,
   $settings             = {},

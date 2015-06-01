@@ -46,7 +46,7 @@ define heka::plugin::input::udpinput (
   $plugin_file_owner    = 'root',
   $plugin_file_group    = 'root',
   $plugin_file_mode     = '0644',
-  $refresh_heka_service = true,
+  $refresh_heka_service = $heka::manage_service,
   $heka_daemon_name     = $heka::params::heka_daemon_name,
   #udpinput plugin specific parameters
   $plugin_file_template = 'heka/plugins/inputs/heka_udpinput_plugin.toml.erb',
