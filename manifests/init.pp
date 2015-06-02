@@ -9,6 +9,7 @@
 # @param service_ensure String; the state the Heka daemon should be set to; defaults to `running`
 # @param service_enable Bool; whether the Heka daemon should be enabled to start on system boot; defaults to `true`
 # @param heka_daemon_name String; the name of the Heka daemon; defaults to `heka` for both Red Hat/CentOS and Debian/Ubuntu
+# @param heka_max_procs String; the maximum number of processors or processor cores Heka will use; defaults to the value of the processorcount fact
 # @param global_config_settings Hash; a hash of global Heka config options; defaults to an empty hash, `{}`
 #
 # === Examples
