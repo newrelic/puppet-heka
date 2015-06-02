@@ -50,7 +50,7 @@ Because the Heka packages do not include init scripts or Upstart/systemd unit fi
 
 ####[Global Heka configuration](id:global-heka-configuration)
 
-The module templates `/etc/heka.toml`. Currently, it only specifies a `maxprocs` value, which you can overrider with the `heka_max_procs` parameter:
+The module templates `/etc/heka.toml`. Currently, it only specifies a `maxprocs` value, which you can override with the `heka_max_procs` parameter:
 
 ```bash
 class { '::heka':
