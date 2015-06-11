@@ -10,6 +10,7 @@
 # @param service_ensure String; the state the Heka daemon should be set to; defaults to `running`
 # @param service_enable Bool; whether the Heka daemon should be enabled to start on system boot; defaults to `true`
 # @param heka_daemon_name String; the name of the Heka daemon; defaults to `heka` for both Red Hat/CentOS and Debian/Ubuntu
+# @param heka_max_procs String; the maximum number of processors or processor cores Heka will use; defaults to the value of the processorcount fact
 # @param global_config_settings Hash; a hash of global Heka config options; defaults to an empty hash, `{}`
 # @param purge_unmanaged_configs Bool; whether to purge unmanaged Heka TOML config files that are not managed by Puppet; defaults to true
 #
@@ -30,6 +31,7 @@ class heka (
   $service_enable          = $heka::params::service_enable,
   $global_config_settings  = $heka::params::global_config_settings,
   $purge_unmanaged_configs = $heka::params::purge_unmanaged_configs,
+  $heka_max_procs          = $heka::params::heka_max_procs
 ) inherits heka::params {
 
   #Do some validation of the class' parameters:
@@ -45,9 +47,14 @@ class heka (
       version => $version,
     } ~>
     class { 'heka::config': 
+<<<<<<< HEAD
       global_config_settings  => $global_config_settings,
       manage_service          => $manage_service,
       purge_unmanaged_configs => $purge_unmanaged_configs
+=======
+      global_config_settings => $global_config_settings,
+      heka_max_procs         => $heka_max_procs
+>>>>>>> 2584c5c0141f405adce3e3784c9f507db0fce0d2
     } ~>
     class { 'heka::service': }
   }

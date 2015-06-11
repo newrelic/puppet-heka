@@ -13,17 +13,19 @@
 # === Examples
 #
 #  class { 'heka': }
-# 
+#
 # === Authors
 #
 # Nicholas Chappell <nchappell@newrelic.com>
 #
 
 class heka::config (
+<<<<<<< HEAD
   $heka_daemon_name        = $heka::params::heka_daemon_name,
   $global_config_settings  = $heka::params::global_config_settings,
   $manage_service          = $heka::params::manage_service,
   $purge_unmanaged_configs = $heka::params::purge_unmanaged_configs
+  $heka_max_procs          = $heka::params::heka_max_procs
 ) inherits heka::params {
 
   #Do some validation of the class' parameters:
@@ -94,7 +96,7 @@ class heka::config (
       default: { fail("${::operatingsystem} is not a supported operating system!") }
     }
 }
-  
+
   else {
     #Manage /etc/heka/
     file {'/etc/heka':
@@ -155,7 +157,7 @@ class heka::config (
        }
       default: { fail("${::operatingsystem} is not a supported operating system!") }
     }
-}
+  }
 
 
 }
