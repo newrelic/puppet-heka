@@ -322,7 +322,7 @@ You can use the `heka::plugin` defined type to generate TOML configs for plugins
 }
 ```
 
-The `type` parameter is required.
+**Note:** The `type` parameter is required.
 
 **Settings**
 
