@@ -109,6 +109,18 @@ class { '::heka':
 }
 ```
 
+####Purging unmanaged TOML configs
+
+You can use the `purge_unmanaged_configs` parameter to remove any TOML configs not managed by Puppet. The parameter is a boolean and defaults to `true`:
+
+```bash
+class { '::heka':
+...
+  purge_unmanaged_configs => true,
+...
+}
+```
+
 ####Package versioning
 
 To specify a particular Heka package version to install, use the `package_download_url` and `version` parameters:
