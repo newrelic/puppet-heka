@@ -11,6 +11,7 @@
 # @param service_enable Bool; whether the Heka daemon should be enabled to start on system boot; defaults to `true`
 # @param heka_daemon_name String; the name of the Heka daemon; defaults to `heka` for both Red Hat/CentOS and Debian/Ubuntu
 # @param global_config_settings Hash; a hash of global Heka config options; defaults to an empty hash, `{}`
+# @param purge_unmanaged_configs Bool; whether to purge unmanaged Heka TOML config files that are not managed by Puppet; defaults to true
 #
 # === Examples
 #
@@ -22,16 +23,18 @@
 #
 
 class heka (
-  $package_download_url   = $heka::params::package_download_url,
-  $version                = $heka::params::version,
-  $manage_service         = $heka::params::manage_service,
-  $service_ensure         = $heka::params::service_ensure,
-  $service_enable         = $heka::params::service_enable,
-  $global_config_settings = $heka::params::global_config_settings,
+  $package_download_url    = $heka::params::package_download_url,
+  $version                 = $heka::params::version,
+  $manage_service          = $heka::params::manage_service,
+  $service_ensure          = $heka::params::service_ensure,
+  $service_enable          = $heka::params::service_enable,
+  $global_config_settings  = $heka::params::global_config_settings,
+  $purge_unmanaged_configs = $heka::params::purge_unmanaged_configs,
 ) inherits heka::params {
 
   #Do some validation of the class' parameters:
   validate_hash($global_config_settings)
+  validate_bool($purge_unmanaged_configs)
 
   if $manage_service == true {
     #Apply our classes in the right order. Use the squiggly arrows (~>) to ensure that the
@@ -42,8 +45,9 @@ class heka (
       version => $version,
     } ~>
     class { 'heka::config': 
-      global_config_settings => $global_config_settings,
-      manage_service         => $manage_service
+      global_config_settings  => $global_config_settings,
+      manage_service          => $manage_service,
+      purge_unmanaged_configs => $purge_unmanaged_configs
     } ~>
     class { 'heka::service': }
   }
@@ -54,8 +58,9 @@ class heka (
       version => $version,
     } ~>
     class { 'heka::config': 
-      global_config_settings => $global_config_settings,
-      manage_service         => $manage_service
+      global_config_settings  => $global_config_settings,
+      manage_service          => $manage_service,
+      purge_unmanaged_configs => $purge_unmanaged_configs
     }
   }
 

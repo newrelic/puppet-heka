@@ -8,6 +8,7 @@
 #
 # @param heka_daemon_name String; the name of the Heka daemon; defaults to `heka` for both Red Hat/CentOS and Debian/Ubuntu
 # @param global_config_settings Hash; a hash of global Heka config options; defaults to an empty hash, `{}`
+# @param purge_unmanaged_configs Bool; whether to purge unmanaged Heka TOML config files that are not managed by Puppet; defaults to true
 #
 # === Examples
 #
@@ -19,9 +20,10 @@
 #
 
 class heka::config (
-  $heka_daemon_name       = $heka::params::heka_daemon_name,
-  $global_config_settings = $heka::params::global_config_settings,
-  $manage_service         = $heka::params::manage_service
+  $heka_daemon_name        = $heka::params::heka_daemon_name,
+  $global_config_settings  = $heka::params::global_config_settings,
+  $manage_service          = $heka::params::manage_service,
+  $purge_unmanaged_configs = $heka::params::purge_unmanaged_configs
 ) inherits heka::params {
 
   #Do some validation of the class' parameters:
@@ -34,6 +36,8 @@ class heka::config (
       owner   => 'root',
       group   => 'root',
       mode    => '0755',
+      purge   => $purge_unmanaged_configs,
+      recurse => $purge_unmanaged_configs,
     } ~>
 
     #Manage /etc/heka/heka.toml
@@ -98,6 +102,8 @@ class heka::config (
       owner   => 'root',
       group   => 'root',
       mode    => '0755',
+      purge   => $purge_unmanaged_configs,
+      recurse => $purge_unmanaged_configs,
     } ~>
 
     #Manage /etc/heka/heka.toml
