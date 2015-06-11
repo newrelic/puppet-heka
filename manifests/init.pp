@@ -49,8 +49,8 @@ class heka (
     class { 'heka::config':
       global_config_settings  => $global_config_settings,
       manage_service          => $manage_service,
-      purge_unmanaged_configs => $purge_unmanaged_configs
-      heka_max_procs         => $heka_max_procs
+      purge_unmanaged_configs => $purge_unmanaged_configs,
+      heka_max_procs          => $heka_max_procs,
     } ~>
     class { 'heka::service': }
   }
@@ -63,7 +63,7 @@ class heka (
     class { 'heka::config':
       global_config_settings  => $global_config_settings,
       manage_service          => $manage_service,
-      purge_unmanaged_configs => $purge_unmanaged_configs
+      purge_unmanaged_configs => $purge_unmanaged_configs,
     }
   }
 
