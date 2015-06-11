@@ -59,6 +59,11 @@ class heka::config (
               mode    => '0644',
               content => template('heka/heka.conf.erb'),
               notify  => Service[$heka_daemon_name],
+            } ~>
+            #Run initctl reload-configuration so Upstart knows about the new Heka daemon config file:
+            exec { 'initctl-reload-config-for-heka':
+              command     => "/sbin/initctl reload-configuration",
+              refreshonly => true,
             }
           }
           '7': {
