@@ -20,10 +20,42 @@ class heka::service (
   $heka_daemon_name = $heka::params::heka_daemon_name
 ) inherits heka::params {
 
-  service { $heka_daemon_name:
-    ensure   => $service_ensure,
-    provider => $service_provider,
-    enable => $service_enable
-  }
+  case $::operatingsystem {
+    'RedHat', 'CentOS': {
+      case $::operatingsystemmajrelease {
+      #Pick Upstart for Red Hat/CentOS 6 and explicitly specify the start, stop, restart
+      #and status commands as a workaround for bugs in the EL6 Upstart provider in older
+      #versions of Puppet 3:
+        '6': {
+          service { $heka_daemon_name:
+            ensure     => $service_ensure,
+            hasrestart => true,
+            hasstatus  => true,
+            restart    => '/sbin/initctl restart heka',
+            start      => '/sbin/initctl start heka',
+            stop       => '/sbin/initctl stop heka',
+            status     => '/sbin/initctl status heka | grep running',
+          }
+        }
+        #CentOS 7 just uses systemd for the service provider, so we don't need any workarounds:
+        '7': {
+          service { $heka_daemon_name:
+            ensure   => $service_ensure,
+            provider => $service_provider,
+            enable => $service_enable
+          }
+        }
+        default: { fail("${::operatingsystemmajrelease} is not a supported Red Hat/CentOS release!") }
+      }
+    }
+    'Debian', 'Ubuntu': {
+      service { $heka_daemon_name:
+        ensure   => $service_ensure,
+        provider => $service_provider,
+        enable => $service_enable
+      }
 
+    }
+    default: { fail("${::operatingsystem} is not a supported operating system!") }
+  }
 }

@@ -50,7 +50,13 @@ Because the Heka packages do not include init scripts or Upstart/systemd unit fi
 
 ####[Global Heka configuration](id:global-heka-configuration)
 
-The module templates `/etc/heka.toml`. Currently, it only specifies a `maxprocs` value. 
+The module templates `/etc/heka.toml`. Currently, it only specifies a `maxprocs` value, which you can override with the `heka_max_procs` parameter:
+
+```bash
+class { '::heka':
+  heka_max_procs         => '2',
+}
+```
 
 To specify global configuration options the module doesn't explicitly provide parameters for, you can use the `global_config_settings` parameter, which is a hash and uses the key/value pairs as the key/value pairs printed in `heka.toml`:
 
@@ -82,11 +88,21 @@ This module requires the following Puppet modules:
 
 ###[Basic usage](id:basic-usage)
 
-The following installs and configures Heka with it's default settings. The `maxprocs` in Heka's main config will be set to the value of the `processorcount` fact. All other global config values won't be printed in the main config file unless specified as parameters. If they aren't printed in the file, Heka will use its own internal default value for each setting.
+The following installs and configures Heka with it's default settings and manages the Heka daemon once everything is installed and configured. The `maxprocs` in Heka's main config will be set to the value of the `processorcount` fact. All other global config values won't be printed in the main config file unless specified as parameters. If they aren't printed in the file, Heka will use its own internal default value for each setting.
 
 ```bash
 class { '::heka':}
 ```
+
+You can optionally choose to not manage the Heka service:
+
+```bash
+class { '::heka':
+  manage_service => false,
+}
+```
+
+**Note:** The value of this parameter is also used as the default for any plugins configured by the module and will control whether they try to notify the Heka daemon. If the Heka service is not managed by the main `heka` class, make sure that you don't explicitly set any plugins to notify the daemon with their `refresh_heka_service` parameter. If you do, catalog compilation will fail, as the Heka service won't be in the catalog for the plugin to send notifications to. 
 
 To specify a custom configuration option the module doesn't provide an explicit parameter for, use the `global_config_settings` parameter: 
 
@@ -98,6 +114,31 @@ class { '::heka':
   },
 }
 ```
+
+####Purging unmanaged TOML configs
+
+You can use the `purge_unmanaged_configs` parameter to remove any TOML configs not managed by Puppet. The parameter is a boolean and defaults to `true`:
+
+```bash
+class { '::heka':
+...
+  purge_unmanaged_configs => true,
+...
+}
+```
+
+####Package versioning
+
+To specify a particular Heka package version to install, use the `package_download_url` and `version` parameters:
+
+```bash
+class { '::heka':
+  version => '0.9.2',
+  package_download_url => 'https://github.com/mozilla-services/heka/releases/download/v0.9.2/heka-0_9_2-linux-amd64.rpm',
+}
+```
+
+If you specify an older version than what is currently installed, the module will downgrade the package. However, make sure that the plugins and configuration options you're specifying with the module's plugin types are compatible with the version you are downgrading to!
 
 ####[Puppet parameter and Heka data types](id:parameter-data-types)
 
@@ -287,7 +328,7 @@ You can use the `heka::plugin` defined type to generate TOML configs for plugins
 }
 ```
 
-The `type` parameter is required.
+**Note:** The `type` parameter is required.
 
 **Settings**
 
