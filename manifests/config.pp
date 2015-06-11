@@ -20,7 +20,6 @@
 #
 
 class heka::config (
-<<<<<<< HEAD
   $heka_daemon_name        = $heka::params::heka_daemon_name,
   $global_config_settings  = $heka::params::global_config_settings,
   $manage_service          = $heka::params::manage_service,

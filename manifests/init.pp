@@ -46,15 +46,11 @@ class heka (
       package_download_url => $package_download_url,
       version => $version,
     } ~>
-    class { 'heka::config': 
-<<<<<<< HEAD
+    class { 'heka::config':
       global_config_settings  => $global_config_settings,
       manage_service          => $manage_service,
       purge_unmanaged_configs => $purge_unmanaged_configs
-=======
-      global_config_settings => $global_config_settings,
       heka_max_procs         => $heka_max_procs
->>>>>>> 2584c5c0141f405adce3e3784c9f507db0fce0d2
     } ~>
     class { 'heka::service': }
   }
@@ -64,7 +60,7 @@ class heka (
       package_download_url => $package_download_url,
       version => $version,
     } ~>
-    class { 'heka::config': 
+    class { 'heka::config':
       global_config_settings  => $global_config_settings,
       manage_service          => $manage_service,
       purge_unmanaged_configs => $purge_unmanaged_configs
