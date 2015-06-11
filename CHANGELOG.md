@@ -1,7 +1,7 @@
 #Changelog
 - - -
 
-###version 0.2.0 (unreleased)
+###version 0.2.0 (June 11th, 2015)
 
 
 * [Issue #1](https://github.com/newrelic/puppet-heka/issues/1) and [PR #15](https://github.com/newrelic/puppet-heka/pull/15): Explicitly specify **start**, **stop**, **restart** and **status** `initctl` commands when managing the Heka service on CentOS 6. This is a workaround for bugs in the Upstart provider on CentOS 6 in older versions of Puppet 3.x. Also, call `/sbin/initctl reload-configuration` so that Upstart knows about Heka as a service after Puppet creates `/etc/init/heka.conf`.
