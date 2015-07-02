@@ -4,8 +4,12 @@
 fixtures:
   repositories:
     # Grab stdlib from git (not needed as it should be in our puppet repo)
-    stdlib: git://github.com/puppetlabs/puppetlabs-stdlib.git
-    staging: https://github.com/nanliu/puppet-staging
+    stdlib: 
+        repo: git://github.com/puppetlabs/puppetlabs-stdlib.git
+        ref: "4.5.1"
+    staging: 
+        repo: https://github.com/nanliu/puppet-staging
+        ref: "1.0.0"
   symlinks:
     # Create a link from spec/fixtures/modules/<module_name> to this directory so
     # puppet's manifest loader will see the correct path including the module
