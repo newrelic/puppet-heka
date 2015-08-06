@@ -25,6 +25,9 @@ class heka::params {
   $heka_base_dir = '/var/cache/hekad'
   #Parameter for the share_dir in the [hekad] section of a heka.toml file; defaults to '/usr/share/heka' (string)
   $heka_share_dir = '/usr/share/heka'
+
+  #Leave this to undef so that the limit is not applied unless it is explicitly set:
+  $cgroup_memory_limit = undef
   
   #Whether to purge unmanaged config files:
   $purge_unmanaged_configs = true

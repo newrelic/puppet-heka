@@ -115,6 +115,26 @@ class { '::heka':
 }
 ```
 
+####Setting cgroup memory limits
+
+**Note**: This parameter only applies to CentOS 7 systems. If used on CentOS 6 or Debian/Ubuntu systems, it will be ignored.
+
+To set a cgroup memory limit on the Heka daemon, you can use the `cgroup_memory_limit` parameter. It expects a string of numbers, followed by one of `K`, `M`, `G` or `T`, for kilobytes, megabytes, gigabytes or terabytes, respectively. Catalog compilation will fail if the value doesn't conform to this regular expression:
+
+```ruby
+\d{1,}[KMGT]
+```
+
+Example:
+
+```bash
+class { '::heka':
+...
+  cgroup_memory_limit = '500M',
+...
+}
+```
+
 ####Purging unmanaged TOML configs
 
 You can use the `purge_unmanaged_configs` parameter to remove any TOML configs not managed by Puppet. The parameter is a boolean and defaults to `true`:
