@@ -25,6 +25,7 @@ class heka::config (
   $manage_service          = $heka::params::manage_service,
   $purge_unmanaged_configs = $heka::params::purge_unmanaged_configs,
   $heka_max_procs          = $heka::params::heka_max_procs,
+  $cgroup_memory_limit     = $heka::cgroup_memory_limit,
 ) inherits heka::params {
 
   #Do some validation of the class' parameters:
@@ -81,12 +82,18 @@ class heka::config (
               mode    => '0644',
               content => template('heka/heka.service.erb'),
               notify  => Service[$heka_daemon_name],
+            } ~>
+            exec { 'systemd_reload_unit_files':
+              user        => 'root',
+              command     => '/usr/bin/systemctl daemon-reload',
+              refreshonly => true,
+              require     => File['/usr/lib/systemd/system/heka.service'],
             }
           }
           default: { fail("${::operatingsystemmajrelease} is not a supported Red Hat/CentOS release!") }
         }
       }
-       'Debian', 'Ubuntu': {
+      'Debian', 'Ubuntu': {
           #File resource for /etc/init/heka.conf, the Upstart config file:
           file { '/etc/init/heka.conf':
             ensure  => 'file',
@@ -99,7 +106,7 @@ class heka::config (
        }
       default: { fail("${::operatingsystem} is not a supported operating system!") }
     }
-}
+  }
 
   else {
     #Manage /etc/heka/
@@ -144,6 +151,12 @@ class heka::config (
               group   => 'root',
               mode    => '0644',
               content => template('heka/heka.service.erb'),
+            } ~>
+            exec { 'systemd_reload_unit_files':
+              user        => 'root',
+              command     => '/usr/bin/systemctl daemon-reload',
+              refreshonly => true,
+              require     => File['/usr/lib/systemd/system/heka.service'],
             }
           }
           default: { fail("${::operatingsystemmajrelease} is not a supported Red Hat/CentOS release!") }
@@ -162,6 +175,5 @@ class heka::config (
       default: { fail("${::operatingsystem} is not a supported operating system!") }
     }
   }
-
 
 }

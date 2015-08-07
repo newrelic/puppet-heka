@@ -14,6 +14,9 @@ Type=simple
 PIDFile=/var/run/hekad.pid
 ExecStart=/usr/bin/hekad -config=/etc/heka
 Restart=on-failure
+<%- if @cgroup_memory_limit -%>
+MemoryLimit=<%= @cgroup_memory_limit %>
+<%- end -%>
 
 [Install]
 WantedBy=multi-user.target
