@@ -29,6 +29,7 @@ class heka (
   $manage_service          = $heka::params::manage_service,
   $service_ensure          = $heka::params::service_ensure,
   $service_enable          = $heka::params::service_enable,
+  $cgroup_memory_limit     = $heka::params::cgroup_memory_limit,
   $global_config_settings  = $heka::params::global_config_settings,
   $purge_unmanaged_configs = $heka::params::purge_unmanaged_configs,
   $heka_max_procs          = $heka::params::heka_max_procs
@@ -37,6 +38,10 @@ class heka (
   #Do some validation of the class' parameters:
   validate_hash($global_config_settings)
   validate_bool($purge_unmanaged_configs)
+  #Make sure the $cgroup_memory_limit variable is in the form of something like 100M (or K, G or T) with a regex:
+  if $cgroup_memory_limit {
+    validate_re($cgroup_memory_limit, '\d{1,}[KMGT]', 'The $cgroup_memory_limit variable\'s value does not conform to the format that systemd expects. See http://www.freedesktop.org/software/systemd/man/systemd.resource-control.html#MemoryLimit=bytes for more info.')
+  }
 
   if $manage_service == true {
     #Apply our classes in the right order. Use the squiggly arrows (~>) to ensure that the
