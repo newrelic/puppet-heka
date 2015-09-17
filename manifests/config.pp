@@ -20,12 +20,13 @@
 #
 
 class heka::config (
-  $heka_daemon_name        = $heka::params::heka_daemon_name,
-  $global_config_settings  = $heka::params::global_config_settings,
-  $manage_service          = $heka::params::manage_service,
-  $purge_unmanaged_configs = $heka::params::purge_unmanaged_configs,
-  $heka_max_procs          = $heka::params::heka_max_procs,
-  $cgroup_memory_limit     = $heka::cgroup_memory_limit,
+  $heka_daemon_name           = $heka::params::heka_daemon_name,
+  $global_config_settings     = $heka::params::global_config_settings,
+  $manage_service             = $heka::params::manage_service,
+  $purge_unmanaged_configs    = $heka::params::purge_unmanaged_configs,
+  $heka_max_procs             = $heka::params::heka_max_procs,
+  $cgroup_memory_limit        = $heka::cgroup_memory_limit,
+  $systemd_unit_file_settings = $heka::systemd_unit_file_settings
 ) inherits heka::params {
 
   #Do some validation of the class' parameters:

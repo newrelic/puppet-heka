@@ -17,6 +17,17 @@ Restart=on-failure
 <%- if @cgroup_memory_limit -%>
 MemoryLimit=<%= @cgroup_memory_limit %>
 <%- end -%>
+<%#- Make sure the settings hash isn't empty before we start iterating over it: -%>
+<%- if @systemd_unit_file_settings.empty? != true -%>
+<%#- Sort the settings hash so the order they get added to the rendered file doesn't differ from one Puppet run to the next: -%>
+<%- @systemd_unit_file_settings.sort_by {|key, value| key}.each do |key, value| -%>
+<%#- If the key and value aren't empty and they're both strings... -%>
+<%- if key and value and key.is_a?(String) and value.is_a?(String) -%>
+<%#- ...add them to the rendered file: -%>
+<%= key %>=<%= value %>
+<%- end -%>
+<%- end -%>
+<%- end -%>
 
 [Install]
 WantedBy=multi-user.target
