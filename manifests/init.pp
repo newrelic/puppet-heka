@@ -13,7 +13,7 @@
 # @param heka_max_procs String; the maximum number of processors or processor cores Heka will use; defaults to the value of the processorcount fact
 # @param global_config_settings Hash; a hash of global Heka config options; defaults to an empty hash, `{}`
 # @param purge_unmanaged_configs Bool; whether to purge unmanaged Heka TOML config files that are not managed by Puppet; defaults to true
-#
+# @param systemd_unit_file_settings Hash; a hash of custom settings to put into the templated systemd unit file; defaults to {}
 # === Examples
 #
 #  class { 'heka': }
@@ -24,15 +24,16 @@
 #
 
 class heka (
-  $package_download_url    = $heka::params::package_download_url,
-  $version                 = $heka::params::version,
-  $manage_service          = $heka::params::manage_service,
-  $service_ensure          = $heka::params::service_ensure,
-  $service_enable          = $heka::params::service_enable,
-  $cgroup_memory_limit     = $heka::params::cgroup_memory_limit,
-  $global_config_settings  = $heka::params::global_config_settings,
-  $purge_unmanaged_configs = $heka::params::purge_unmanaged_configs,
-  $heka_max_procs          = $heka::params::heka_max_procs
+  $package_download_url       = $heka::params::package_download_url,
+  $version                    = $heka::params::version,
+  $manage_service             = $heka::params::manage_service,
+  $service_ensure             = $heka::params::service_ensure,
+  $service_enable             = $heka::params::service_enable,
+  $cgroup_memory_limit        = $heka::params::cgroup_memory_limit,
+  $global_config_settings     = $heka::params::global_config_settings,
+  $purge_unmanaged_configs    = $heka::params::purge_unmanaged_configs,
+  $heka_max_procs             = $heka::params::heka_max_procs,
+  $systemd_unit_file_settings = $heka::systemd_unit_file_settings
 ) inherits heka::params {
 
   #Do some validation of the class' parameters:

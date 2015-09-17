@@ -46,6 +46,24 @@ This module uses the RPM packages available on Heka's Github releases page:
 
 Because the Heka packages do not include init scripts or Upstart/systemd unit files, this module includes an Upstart file template for Red Hat/CentOS 6 and a systemd unit file for Red Hat/CentOS 7.
 
+####[systemd unit file custom parameters](id:init-upstart-systemd-files)
+
+You can use the `$systemd_unit_file_settings` parameter in the main `heka` class to specify any custom systemd unit file key/value config options you want. `$systemd_unit_file_settings` is a hash and unit file K/V pairs are given as keys/values in the hash:
+
+```bash
+class { '::heka':
+...
+  systemd_unit_file_settings => {
+    'RestartSec' => '30',
+  },
+...
+}
+```
+
+This parameter is ignored on systems other than Red Hat/CentOS 7.
+
+**Note**: Keys and values **must** be strings or they will be ignored and not inserted into the templated unit file.
+
 ###[TOML config files](id:toml-config-files)
 
 ####[Global Heka configuration](id:global-heka-configuration)
