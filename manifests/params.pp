@@ -35,6 +35,9 @@ class heka::params {
   #A hash for global settings that the module doesn't already have explicit parameters for
   $global_config_settings = {}
   
+  #A hash for custom systemd unit file settings:
+  $systemd_unit_file_settings = {}
+
   ##############################
   # Heka package parameters
   ##############################
