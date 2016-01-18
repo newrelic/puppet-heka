@@ -17,8 +17,8 @@
 #
 
 class heka::install (
-  $package_download_url = $heka::params::package_download_url,
-  $version = $heka::params::version,
+  $package_download_url = $heka::package_download_url,
+  $version = $heka::version,
 ) inherits heka::params {
 
   case $::operatingsystem {
